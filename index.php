@@ -722,9 +722,7 @@ $status_motor = status_slot($slot_motor['total'], $slot_motor['terisi']);
         <span class="absolute right-16 bg-slate-900 text-white text-xs font-medium px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition whitespace-nowrap pointer-events-none">Butuh Bantuan?</span>
     </a>
 
-    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
-        <p>&copy; 2026 AeroParking System. Hak Cipta Dilindungi.</p>
-    </footer>
+    <?php include 'footer.php'; ?>
 
     <script>
         // Matriks tarif per jam: [jenis kendaraan][kategori]
