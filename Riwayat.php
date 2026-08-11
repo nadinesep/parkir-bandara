@@ -185,8 +185,6 @@ if ($result_total) {
         </div>
     </main>
 
-    <footer class="bg-slate-900 px-6 py-5 text-center">
-        <p class="text-xs text-slate-400">&copy; <?php echo date('Y'); ?> AeroParking System. Hak Cipta Dilindungi.</p>
-    </footer>
+    <?php include 'footer.php'; ?>
 </body>
 </html>
