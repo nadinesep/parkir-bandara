@@ -22,6 +22,8 @@ Selain sebagai galeri karya, website ini juga memiliki unsur **gamifikasi** mela
 
 > 🎓 **"Unggul, Berkarakter, Berteknologi"**
 **Mockup:**[MockupBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/denah.png)
+**Flowchart:**[FlowchartBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/sanden.png)
+**Algoritma:**[AlgoritmaBandara](https://canva.link/hpkqb9zizc5p52j)
 ---
 
 ## 🌐 Website
