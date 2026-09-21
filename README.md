@@ -6,7 +6,7 @@ Sistem manajemen parkir untuk layanan titip mobil di area bandara — traveler b
 **Status:** Pengembangan & Debugging
 
 > 🎓 *"Unggul, Berkarakter, Berteknologi"*
-*Mockup:*[MockupBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/parkirbandara.jpg)
+*Mockup:*[MockupBandara](https://github.com/nadinesep/parkir-bandara/blob/main/parkirbandara-poster.jpg)
 *Flowchart:*[FlowchartBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/sanden.png)
 *Algoritma:*[AlgoritmaBandara](https://canva.link/hpkqb9zizc5p52j)
 ---
