@@ -1,234 +1,123 @@
-# 🎨 Galeri Karya SMK Negeri 1 Sanden
+# Sistem Informasi Manajemen Parkir Bandara
 
-<p align="center">
-  <b>Platform Portofolio & Galeri Digital Karya Siswa SMK Negeri 1 Sanden</b>
-</p>
+Sistem manajemen parkir untuk layanan titip mobil di area bandara — traveler bisa reservasi slot secara online, petugas mencatat kendaraan masuk/keluar, dan admin memantau kapasitas serta laporan transaksi.
 
-<p align="center">
-  <a href="https://portofolio.moidea.my.id/">
-    🌐 Kunjungi Website
-  </a>
-</p>
+**Demo:** https://parkirbandara.infinityfreeapp.com
+**Status:** Pengembangan & Debugging
+
+> 🎓 *"Unggul, Berkarakter, Berteknologi"*
+*Mockup:*[MockupBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/parkirbandara.jpg)
+*Flowchart:*[FlowchartBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/sanden.png)
+*Algoritma:*[AlgoritmaBandara](https://canva.link/hpkqb9zizc5p52j)
+---
+
+
+## Daftar Isi
+- [Fitur Utama](#fitur-utama)
+- [Peran Pengguna](#peran-pengguna)
+- [Struktur File](#struktur-file)
+- [Alur Sistem](#alur-sistem)
+- [Skema Database](#skema-database)
+- [Instalasi](#instalasi)
+- [Tech Stack](#tech-stack)
+- [Roadmap](#roadmap)
 
 ---
 
-## 📖 Tentang Project
+## Fitur Utama
+- Cek status slot parkir secara real-time (Zona Reguler / Zona Titip Kunci)
+- Reservasi online dengan input plat nomor, bandara tujuan, dan jadwal penerbangan
+- Serah terima kendaraan di zona drop-off dengan pencatatan kondisi mobil
+- Cetak karcis masuk otomatis dengan nomor unik (`#PB-ID`)
+- Perhitungan tarif otomatis berdasarkan durasi titip dan jenis kendaraan
+- Pembayaran QRIS atau tunai saat pengambilan kendaraan
+- Cetak struk pembayaran dan riwayat transaksi
+- Dashboard petugas untuk input kendaraan masuk/keluar
+- Dashboard admin/owner untuk laporan dan kelola data master (tarif, bandara, user)
 
-**Galeri Karya SMK Negeri 1 Sanden** adalah sebuah platform digital yang digunakan untuk mengumpulkan, mendokumentasikan, dan mempublikasikan hasil karya siswa secara online.
+## Peran Pengguna
+| Peran | Akses |
+|---|---|
+| **Traveler** | Cek slot, reservasi online, lihat riwayat, bayar |
+| **Petugas** | Input kendaraan masuk, cetak karcis, proses keluar, cetak struk |
+| **Admin / Owner** | Kelola tarif, kelola bandara & zona, lihat laporan transaksi |
 
-Website ini dirancang sebagai wadah portofolio digital bagi siswa untuk menampilkan berbagai hasil pembelajaran dan proyek yang telah dibuat dengan bimbingan guru.
+## Struktur File
 
-Selain sebagai galeri karya, website ini juga memiliki unsur **gamifikasi** melalui sistem pangkat, apresiasi, avatar, serta Quiz & Skill Passport.
+```
+├── index.php            → Halaman utama (status slot, form cek harga)
+├── login.php            → Form login
+├── logout.php           → Proses logout
+├── register.php         → Pendaftaran akun traveler
+├── notif_login.php      → Notifikasi hasil login (sukses/gagal)
+├── notif-transaksi.php  → Notifikasi status transaksi
+│
+├── petugas.php          → Dashboard petugas (input kendaraan, monitor slot)
+├── admin.php            → Dashboard admin (laporan, kelola master data)
+├── owner.php            → Dashboard owner (ringkasan bisnis)
+├── Dashboard.php        → Ringkasan umum (grafik okupansi, pendapatan)
+│
+├── area.php             → Kelola bandara & zona parkir
+├── area_helper.php      → Fungsi bantu perhitungan slot per zona
+├── tarif_helper.php     → Fungsi bantu perhitungan tarif otomatis
+│
+├── cetak_karcis.php     → Cetak karcis kendaraan masuk
+├── checkout.php         → Proses pembayaran & keluar kendaraan
+├── qrisss.php           → Modul pembayaran QRIS
+├── cetak_struk.php      → Cetak struk pembayaran
+├── struk_lunas.php      → Tampilan struk setelah lunas
+├── riwayat.php          → Riwayat reservasi & transaksi
+│
+├── user.php             → Kelola data pengguna
+├── footer.php           → Komponen footer (reusable)
+└── koneksi.php          → Koneksi ke database MySQL
+```
 
-> 🎓 **"Unggul, Berkarakter, Berteknologi"**
-**Mockup:**[MockupBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/parkirbandara.jpg)
-**Flowchart:**[FlowchartBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/sanden.png)
-**Algoritma:**[AlgoritmaBandara](https://canva.link/hpkqb9zizc5p52j)
----
+## Alur Sistem
 
-## 🌐 Website
+**Kendaraan Masuk**
+1. Petugas login → input data kendaraan & jadwal penerbangan
+2. Sistem mengecek ketersediaan slot pada zona yang dipilih
+3. Jika tersedia → simpan data & cetak karcis (`cetak_karcis.php`)
+4. Kendaraan diantar ke lahan parkir, status slot diperbarui
 
-🔗 **https://portofolio.moidea.my.id/**
+**Kendaraan Keluar**
+1. Petugas mencari data berdasarkan nomor karcis / plat nomor
+2. Sistem mengecek status penerbangan & menghitung biaya (`tarif_helper.php`)
+3. Traveler membayar via QRIS (`qrisss.php`) atau tunai
+4. Mobil diantar ke titik jemput, struk dicetak (`cetak_struk.php`), status diperbarui
 
----
+## Skema Database
 
-## ✨ Fitur Utama
+| Tabel | Keterangan |
+|---|---|
+| `tb_kendaraan` | PK `id_kendaraan` — plat_nomor, jenis_kendaraan, warna, pemilik |
+| `tb_parkir` | PK `id_parkir`, FK `id_kendaraan` — waktu_masuk, waktu_keluar, biaya_total, status |
+| `tb_tarif` | PK `id_tarif` — jenis_kendaraan, harga |
+| `tb_reservasi` | PK `id_reservasi`, FK `id_user`, `id_bandara` — kode_reservasi, jadwal_penerbangan |
+| `tb_bandara` | PK `id_bandara` — nama_bandara, kode_iata |
+| `tb_user` | PK `id_user` — nama, role, password |
 
-### 👨‍🎓 Registrasi Kontributor
+Relasi: `tb_kendaraan` 1—N `tb_parkir`, `tb_reservasi` N—1 `tb_bandara`, `tb_reservasi` N—1 `tb_user`.
 
-Siswa atau kontributor dapat membuat akun dengan mengisi:
+## Instalasi
 
-- Nama lengkap
-- Status
-- Jurusan
-- Nomor HP
-- Avatar
-- Persetujuan publikasi karya
+1. Clone atau salin seluruh file ke folder `htdocs` (XAMPP/Laragon) atau upload ke hosting (mis. InfinityFree)
+2. Buat database MySQL, lalu import skema tabel sesuai [Skema Database](#skema-database)
+3. Atur kredensial koneksi database di `koneksi.php`
+4. Akses `index.php` melalui browser untuk memulai
 
-Setelah melakukan registrasi, sistem akan memberikan **Kode Akses** yang digunakan untuk mengunggah karya.
+## Tech Stack
+- PHP native
+- MySQL / MariaDB
+- HTML, CSS, JavaScript
+- QRIS API (payment gateway pihak ketiga)
 
----
-
-### 📤 Upload Karya
-
-Kontributor dapat mengunggah informasi karya seperti:
-
-- Judul karya
-- Kategori
-- Kelas
-- Link karya
-- Poster karya
-- Tahun pembuatan
-- Lama pembuatan
-- Guru pembimbing
-- Mata pelajaran
-- Deskripsi karya
-
-Karya dapat berupa proyek, desain, website, aplikasi, video, maupun hasil pembelajaran lainnya.
-
----
-
-### 🖼️ Galeri Publik
-
-Karya yang telah berhasil dikirim akan ditampilkan pada galeri publik.
-
-Pengunjung dapat menjelajahi karya berdasarkan:
-
-- Judul
-- Deskripsi
-- Kata kunci
-- Kategori
-- Status
-- Kelas
-- Urutan karya
-
----
-
-### 🔍 Pencarian & Filter
-
-Tersedia fitur pencarian untuk membantu pengunjung menemukan karya dengan lebih cepat.
-
-Filter dapat digunakan berdasarkan beberapa informasi karya yang tersedia.
-
----
-
-### 👤 Profil Author
-
-Setiap kontributor memiliki profil yang menampilkan:
-
-- Nama author
-- Avatar
-- Informasi kontributor
-- Karya-karya yang telah dibuat
-
-Pengunjung dapat melihat karya lain dari author yang sama.
-
----
-
-### ⭐ Sistem Apresiasi
-
-Pengunjung dapat memberikan apresiasi terhadap karya yang dianggap:
-
-- Menarik
-- Kreatif
-- Inspiratif
-- Bermanfaat
+## Roadmap
+- [ ] Integrasi notifikasi status penerbangan otomatis (API maskapai/bandara)
+- [ ] Perluasan cakupan ke bandara tambahan
+- [ ] Aplikasi mobile untuk traveler
+- [ ] Laporan pendapatan per zona & per bandara
 
 ---
-
-### 🏅 Sistem Pangkat
-
-Website memiliki sistem penghargaan berdasarkan hasil Quiz.
-
-| Pangkat | Quiz Score |
-|--------|------------|
-| 🥉 Bronze | 1 – 2 ⭐ |
-| 🥈 Silver | 3 – 5 ⭐ |
-| 🥇 Gold | 6 – 8 ⭐ |
-| 💎 Diamond | 9 – 10 ⭐ |
-
-Sistem ini dibuat untuk meningkatkan motivasi siswa dalam belajar dan berkontribusi.
-
----
-
-### 🎓 Quiz & Skill Passport
-
-Pengguna dapat mengikuti Quiz untuk menguji pemahaman dan memperoleh **Sertifikat Skill Passport**.
-
-Hasil quiz dapat menjadi bagian dari rekam jejak kompetensi pengguna.
-
----
-
-### 🧑‍🚀 Avatar
-
-Saat melakukan registrasi, pengguna dapat memilih avatar yang nantinya akan ditampilkan pada profil.
-
----
-
-### 🌓 Dark Mode
-
-Website menyediakan pilihan tampilan:
-
-- ☀️ Light Mode
-- 🌙 Dark Mode
-
-Sehingga pengguna dapat memilih tampilan sesuai kenyamanan.
-
----
-
-### 🔊 Sound / Music
-
-Website menyediakan kontrol suara atau musik latar.
-
-Pengguna dapat mengaktifkan maupun menonaktifkan musik menggunakan tombol Sound.
-
----
-
-### 📶 Status Internet
-
-Tersedia indikator untuk memantau kualitas koneksi internet, seperti:
-
-- Download
-- Upload
-- Ping
-
----
-
-## 🛠️ Teknologi yang Digunakan
-
-Project ini menggunakan berbagai teknologi dan layanan:
-
-| Teknologi | Penggunaan |
-|-----------|------------|
-| HTML5 | Struktur halaman |
-| CSS3 | Styling dan tampilan |
-| JavaScript | Interaksi dan logika website |
-| Tailwind CSS | Framework CSS |
-| Lucide Icons | Icon interface |
-| Chart.js | Visualisasi data |
-| GAS MOIDEA | Backend / integrasi Google Apps Script |
-| Lybra REST API | REST API |
-| GitHub Pages | Hosting / deployment |
-| AI Assistant | Fitur bantuan berbasis AI |
-
----
-
-## 🏗️ Konsep Sistem
-
-Secara umum alur penggunaan website:
-
-```text
-                    ┌──────────────────┐
-                    │      Pengguna    │
-                    └────────┬─────────┘
-                             │
-              ┌──────────────┴──────────────┐
-              │                             │
-              ▼                             ▼
-       ┌─────────────┐              ┌─────────────┐
-       │  Registrasi │              │   Jelajahi  │
-       │   Akun      │              │   Galeri    │
-       └──────┬──────┘              └─────────────┘
-              │
-              ▼
-       ┌─────────────┐
-       │ Kode Akses  │
-       └──────┬──────┘
-              │
-              ▼
-       ┌─────────────┐
-       │ Upload Karya│
-       └──────┬──────┘
-              │
-              ▼
-       ┌─────────────┐
-       │ Galeri      │
-       │ Publik      │
-       └──────┬──────┘
-              │
-       ┌──────┴───────┐
-       ▼              ▼
-  ┌─────────┐   ┌────────────┐
-  │Apresiasi│   │ Quiz &     │
-  │ ⭐       │   │ Skill Pass │
-  └─────────┘   └────────────┘# parkir-bandara
+*README ini dibuat berdasarkan struktur proyek Sistem Parkir Bandara, adaptasi dari struktur Sistem Parkir Mall.*
