@@ -21,7 +21,7 @@ Website ini dirancang sebagai wadah portofolio digital bagi siswa untuk menampil
 Selain sebagai galeri karya, website ini juga memiliki unsur **gamifikasi** melalui sistem pangkat, apresiasi, avatar, serta Quiz & Skill Passport.
 
 > 🎓 **"Unggul, Berkarakter, Berteknologi"**
-**Mockup:**[MockupBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/parkirbandara.JPG)
+**Mockup:**[MockupBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/parkirbandara.jpg)
 **Flowchart:**[FlowchartBandara](https://raw.githubusercontent.com/nadinesep/parkir-bandara/refs/heads/main/sanden.png)
 **Algoritma:**[AlgoritmaBandara](https://canva.link/hpkqb9zizc5p52j)
 ---
